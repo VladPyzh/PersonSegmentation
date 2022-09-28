@@ -1,10 +1,8 @@
 # PersonSegmentation
 
-## Структура
+Let's formulate our task: we want to distinguish person on photo from other objects on background. In other words we are solving semantic segmentation problem. In this repo we introduce a short research on this problem, achieved 0.95 dice metrics.
 
-В данном репозитории находится решение задачи сегментации человека на фото. 
-
-- Готовое решение представлено в файле Solution, в директории weights сохраняются оптимальные веса модели
-- Файлы-ответы находятся сразу же, это pred_valid_template.csv и html.html
-- В директории exps находятся эксперименты с их описанием, из каких соображений они проводились.
-- В папке utils содержатся функции для готового решения: пайплайн и датасет  
+- Ready-to-use solution is represented in Solution.ipynb. Dir /weights contains bests weights for model
+- example.html consists of several photo examples of this model usage. It uses /html directory
+- /exps contains several notebooks with motivation of solutions and ideas.
+- /utils contains pipeline for Solution.ipynb and dataset
