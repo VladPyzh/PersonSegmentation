@@ -1,12 +1,17 @@
-# Эксперименты
+# Experiments
 
-Соответсвующие эксперименты можно найти в блокнотах в этой же директории
+Corresponding experiments are able to find in this repo
 
-## Эксперименты с UNet
+## U-NET experiments
 
 ![](UNet.png)
 
 ### Baseline
+
+At first, I decided to implement [UNet](https://arxiv.org/abs/1505.04597), because it is very popular and nevertheless simple network.
+During the procedure of training I decided to use several augmentations: severak rotations with small angles, horizontal symetry, scale and perspective changes, crops.
+
+
 В первую очередь для решения данной задачи я решил реализовать [UNet](https://arxiv.org/abs/1505.04597), поскольку это довольно простая и популярная сеть.
 При запуске я решил воспользоваться рядом аугментаций: повороты на небольшие градусы, горизонтальная симметрия, изменения масштаба и перспективы, вырезание
 небольших кусочков. Первые типы аугментаций не влияют на естесвенность фотографий, а аугментация с вырезанием квадратов должна помочь с тем чтобы более явно
