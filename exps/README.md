@@ -8,35 +8,18 @@ Corresponding experiments are able to find in this repo
 
 ### Baseline
 
-At first, I decided to implement [UNet](https://arxiv.org/abs/1505.04597), because it is very popular and nevertheless simple network.
-During the procedure of training I decided to use several augmentations: severak rotations with small angles, horizontal symetry, scale and perspective changes, crops.
-
-
-В первую очередь для решения данной задачи я решил реализовать [UNet](https://arxiv.org/abs/1505.04597), поскольку это довольно простая и популярная сеть.
-При запуске я решил воспользоваться рядом аугментаций: повороты на небольшие градусы, горизонтальная симметрия, изменения масштаба и перспективы, вырезание
-небольших кусочков. Первые типы аугментаций не влияют на естесвенность фотографий, а аугментация с вырезанием квадратов должна помочь с тем чтобы более явно
-выделять границы силуэта. При запуске бейзлайна я воспользовался оптимизатором Adam c дефолтными параметрами. Несмотря на то что, использование dice loss в 
-качестве лосс функций может на первый взгляд показаться естесвенным в задаче по оптимизации dice после первого запуска я получил достаточно плохие результаты
-и отказался от этой идеии. Я решил использовать кросс-энтропию.
+At first, we decided to implement [UNet](https://arxiv.org/abs/1505.04597), because it is effective and nevertheless simple network.
+During the procedure of training I decided to use several augmentations: rotations with small angles, horizontal symetry, scale and perspective changes, crops. First three augmentation keeps image natural, whereas crops should improve model's silhouette detection. I used default Adam optimizer and cross entropy as loss function
 
 ### NoCrop
-После получения базовго пайплайна я обратил внимание на то, что моя модель достаточно часто может оставлять пустые зоны внутри силуэтов или проводить границы 
-по элементам одежды. Таким образом я решил убрать из аугментаций вырезание квадратиков, однако это только ухудшило результат.
+
+After baseline pipeline, it was noticed that model sometimes leave a lot of empty space inside of persons, or make cuts on clothes edges. I decided to launch model without crops, but it decreased quality of model.
 
 ### ExtraCrop
-Я обратил внимание, что иногда модель не может выделить человека на фоне какого-то одноцветного фона или не может отличить элементы одежды от этого фона.
-Таким образом я пришел к идее, что я мог бы добавить аугментации, который вырезали бы квадратики и на их место добавляли закрашенные области нескольких цветов,
-я взял красный, зеленый и синий. Такая аугментация не привела к улучшению моей модели.
-
-### OpticalDistortion
-Так же выбирая из возможных аугментаций я решил попробовать сделать оптические преобразования с картинкой, к несчастью такой эксперимент тоже не принес 
-улучшений
+I noticed, that model sometimes can't distinguish persons from background, even if it is monotonous. Thus, I decided to add some colorful crops, especial blue and green for imitation of water, sky and grass. It didn't improve model's quality.
 
 ### ChangingLoss
-При рассмотрении датасета я обратил внимание, что на фотографиях на которых присутсвует только лицо человека образуются гладкие контуры, тогда как 
-фотографии в полный рост имеют гораздо более сложный силуэт. При этом фотографии, на которых человек изображен в полный рост есть явный дисбаланс классов.
-Это натолкнуло меня на мысль, что можно было бы брать взвешенную энтропию вместо обычной. Я рассмотрел два варианта эксперимента, они оба не дали 
-улучшений и на этом я решил попробовать перейти к другой модели.
+It is often when some pictures from dataset contains huge class disbalance. Therefore, it is possible that weighted cross entropy may improve model's quality. After two experiment I haven't received significant improvements, thus I decided to switch model.
 
 
 ## Эксперименты с DeepUNet
